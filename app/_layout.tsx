@@ -6,9 +6,9 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import "../global.css"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 
 const queryClient = new QueryClient();
@@ -16,7 +16,7 @@ const queryClient = new QueryClient();
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -34,7 +34,8 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+
       <QueryClientProvider client={queryClient}>
         <Stack
           screenOptions={{
@@ -45,6 +46,7 @@ export default function RootLayout() {
           <Stack.Screen name="+not-found" />
         </Stack>
       </QueryClientProvider>
-    </ThemeProvider>
+    </GestureHandlerRootView>
+
   );
 }
